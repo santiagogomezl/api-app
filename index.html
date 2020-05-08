@@ -13,11 +13,19 @@
     <main>
         <h1>Soundtracks</h1>
         <form id="js-soundtrack-form" action="#" method="GET">
-        <label for="search-title">Search movie Soundtracks</label>
-        <input type="text" name="search-title" id="js-search-title" placeholder="Kill Bill" required><br>
+        <label for="search-movie">Search movie Soundtracks</label>
+        <input type="text" name="search-movie" id="js-search-movie" placeholder="Kill Bill" required><br>
         <input type="submit" value="Search">
         </form>
         <p id="js-error-message"></p>
+        <section class="movie-info hidden">
+
+        </section>
+        <section class="tracks-info hidden">
+            <ul>
+
+            </ul>
+        </section>
     </main>
 
     <script src="https://code.jquery.com/jquery-3.3.1.js" 
