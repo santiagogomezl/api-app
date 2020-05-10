@@ -10,15 +10,17 @@
 
 </head>
 <body>
-    <header></header>
-    <main>
+    <header>
         <h1>Movies Soundtracks and Featured Clips</h1>
         <form id="js-soundtrack-form" action="#" method="GET">
         <label for="search-movie">Search movie soundtracks or featured clips</label>
         <input type="text" name="search-movie" id="js-search-movie" placeholder="Kill Bill" required>
         <input type="submit" value="Search">
         </form>
-        <p id="js-error-message"></p>
+    </header>
+    <main>
+        
+        <section id="js-error-message"></section>
 
         <section class="movie-info hidden">
             <ul id="js-movies-list">
@@ -26,14 +28,14 @@
             </ul>
         </section>
         
-        <section class="soundtrack-playlist hidden">
+        <section id="js-playlist" class="hidden">
             
         </section>
      
         <section class="tracks-info hidden">
-            <ul>
+            <ol id="js-tracks-list">
 
-            </ul>
+            </ol>
         </section> 
     </main>
 

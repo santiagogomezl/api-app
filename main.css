@@ -6,9 +6,14 @@ body{
     font-family: 'Jost', sans-serif;
 }
 
-main{
+header, main{
     width: 60%;
+    min-width: 800px;
     margin: 0 auto;
+}
+
+header{
+    margin-bottom: 20px;
 }
 
 .hidden{
@@ -17,7 +22,6 @@ main{
 
 .movie-info{
     width: 100%;
-    min-width: 800px;
 }
 
 .movie-info ul{
@@ -25,13 +29,22 @@ main{
     margin: 0;
     padding: 0;
     display: flex;
-    justify-content: space-between;
 }
 
 .movie-info li{
     width: 25%;
-    padding: 10px ;
+    padding: 10px;
     list-style-type: none;
+    position: relative;
+}
+
+.js-movie-link{
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 img.title-poster{
@@ -40,7 +53,6 @@ img.title-poster{
     margin-bottom: 10px;
     object-fit: cover;
     display: block;
-    cursor: pointer;
 }
 
 .movie-info h3{

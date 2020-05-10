@@ -16,17 +16,17 @@ function formatQueryParams(params){
     return encodedQuery.join('&');
 }
 
+function reportError(errorType){
+    
+}
+
 function displayTracksInfo(tracksInfo){
     //Retrieves tracks info from Youtube to be displayed
 
-    $('.tracks-info ul').empty();
-
     for(let i = 0 ;i < tracksInfo.items.length; i++){
-
-    $('.tracks-info ul').append(
-        `<li>${tracksInfo.items[i].snippet.title}</li>`    
-    );
-
+        $('#js-tracks-list').append(
+            `<li>${tracksInfo.items[i].snippet.title}</li>`    
+        );
     }
 
     $('.tracks-info').removeClass('hidden');
@@ -49,22 +49,10 @@ function getTracksInfo(playlistId){
     fetchResults(url,'tracksInfo');
 }
 
-// function getAlbumInfo(query){
-//     //Get movie soundtrack details 
-//     //Todo: 
-//     const params = {
-//         a : query
-//     };
-//     const queryString = formatQueryParams(params);
-//     const url = theAudioDBURL + 'searchalbum.php?' + queryString;
-
-//     fetchResults(url,'albumInfo');
-// }
-
 function getPlaylistInfo(query){
     const params = {
         part : 'snippet',
-        q: query + ' OST playlist',
+        q: query + ' sountrack playlist',
         maxResults : '1',
         key : youtubeKey 
     };
@@ -76,42 +64,60 @@ function getPlaylistInfo(query){
 
 function displayMoviePlaylist(responseJson){
 
-   const playlistId = responseJson.items[0].id.playlistId;
+    if(responseJson.pageInfo.totalResults !== 0){
 
-    $('.soundtrack-playlist').empty()
-    .append(
-    `<iframe width="560" height="315" 
-    src="https://www.youtube.com/embed/videoseries?list=${playlistId}" 
-    frameborder="0" allow="accelerometer; autoplay; 
-    encrypted-media; gyroscope; picture-in-picture" 
-    allowfullscreen></iframe>`)
-    .removeClass('hidden');
+        const playlistId = responseJson.items[0].id.playlistId;
 
-    getTracksInfo(playlistId);
+        $('#js-playlist').empty()
+        .append(
+        `<iframe width="560" height="315" 
+        src="https://www.youtube.com/embed/videoseries?list=${playlistId}" 
+        frameborder="0" allow="accelerometer; autoplay; 
+        encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen></iframe>`)
+        .removeClass('hidden');
+
+        getTracksInfo(playlistId);
+    }else{
+        $('#js-error-message').empty()
+        .append(`<p>No soundtrack playlists found for this title. Check <a href="https://www.youtube.com/" target="_blank">youtube.com</a> 
+        for a full list of playlists</p>`);
+    }
+
+   
 
 }
 
 function displayMovieInfo(responseJson){
-    //Display title metadata
-    //Todo: Validate responseJson
-    const results = responseJson.Search;
-    let titles = 0;
-    results.length > 4 ?  titles = 4 :  title = results.length; 
+    //Display movie metadata
 
-    $('.movie-info ul').empty();
+    if(responseJson.Response === "True"){
 
-    for(let i = 0 ; i < titles ; i++){
+        const results = responseJson.Search;
+        let titles = 0;
+        results.length > 4 ?  titles = 4 :  titles = results.length; 
 
-        $('.movie-info ul').append(
-        `<li name="${results[i].Title}" data-year="${results[i].Year}">
-            <img src="${results[i].Poster}" class="title-poster" alt="${results[i].Title} poster">
-            <h3>${results[i].Title}</h3>
-            <p>${results[i].Year}</p>
-        </li>`);
-
+        for(let i = 0 ; i < titles ; i++){
+            if(results[i].Type === 'movie'){
+                $('#js-movies-list').append(
+                `<li name="${results[i].Title}" data-year="${results[i].Year}">
+                    <a class="js-movie-link" href="#"></a>
+                    <img src="${results[i].Poster}" class="title-poster" alt="${results[i].Title} poster">
+                    <h3>${results[i].Title}</h3>
+                    <p>${results[i].Year}</p>
+                </li>`);
+            }else{
+                i++;
+            }
+        }
+        $('.movie-info').removeClass('hidden');
+    }else{
+        $('#js-error-message').empty()
+        .append(`<p>${responseJson.Error} Check <a href="https://www.imdb.com/" target="_blank">imdb.com</a> 
+        for a full list of all existing movies</p>`);
     }
 
-    $('.movie-info').removeClass('hidden');
+    
 
 }
 
@@ -151,12 +157,12 @@ function getMovieInfo(query){
 
 function loadYoutubeInfo(){
     //Triggers youtube serach after user has clicked on a movie option
-    $('#js-movies-list').on('click', 'img', function(){
+    $('#js-movies-list').on('click', 'a', function(){
         $(this).parent('li').siblings().remove();
         const title = $(this).parent('li').attr('name');
         const year = $(this).parent('li').attr('data-year');
+        $(this).remove();
         getPlaylistInfo(title + ' ' + year);
-        // getAlbumInfo(title);
     });
    
 }
@@ -166,6 +172,7 @@ function watchForm(){
     //Todo: Validate input
     $('#js-soundtrack-form').on('submit', event => {
         event.preventDefault();
+        $('#js-movies-list, #js-tracks-list, #js-playlist, #js-error-message').empty();
         const movieTitle = $('#js-search-movie').val();
         $('#js-search-movie').val('');
         getMovieInfo(movieTitle);
