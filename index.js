@@ -17,7 +17,7 @@ function formatQueryParams(params){
 }
 
 function reportError(errorType){
-    
+    //todo
 }
 
 function displayTracksInfo(tracksInfo){
@@ -59,26 +59,42 @@ function getPlaylistInfo(query){
     const queryString = formatQueryParams(params);
     const url = youtubeURL + 'search?' + queryString;
 
+    console.log(url);
     fetchResults(url,'playlistInfo');
 }
 
 function displayMoviePlaylist(responseJson){
 
+    const videoType = responseJson.items[0].id.kind;
+
+    console.log(videoType);
+
     if(responseJson.pageInfo.totalResults !== 0){
 
-        const playlistId = responseJson.items[0].id.playlistId;
+        let playlistId = '';
+        let url = '';
+
+        if(videoType === 'youtube#playlist'){
+            playlistId = responseJson.items[0].id.playlistId
+            getTracksInfo(playlistId);
+            url = `https://www.youtube.com/embed/videoseries?list=${playlistId}`;
+        }else if(videoType === 'youtube#video'){
+            playlistId = responseJson.items[0].id.videoId;
+            url = `https://www.youtube.com/embed/${playlistId}`;
+        }else{
+            //reportError();
+        }
 
         $('#js-playlist').empty()
         .append(
         `<iframe width="560" height="315" 
-        src="https://www.youtube.com/embed/videoseries?list=${playlistId}" 
+        src="${url}" 
         frameborder="0" allow="accelerometer; autoplay; 
         encrypted-media; gyroscope; picture-in-picture" 
-        allowfullscreen></iframe>`)
-        .removeClass('hidden');
+        allowfullscreen></iframe>`);
 
-        getTracksInfo(playlistId);
     }else{
+        //reportError();
         $('#js-error-message').empty()
         .append(`<p>No soundtrack playlists found for this title. Check <a href="https://www.youtube.com/" target="_blank">youtube.com</a> 
         for a full list of playlists</p>`);
