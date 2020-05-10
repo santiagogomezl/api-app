@@ -167,6 +167,7 @@ function watchForm(){
     $('#js-soundtrack-form').on('submit', event => {
         event.preventDefault();
         const movieTitle = $('#js-search-movie').val();
+        $('#js-search-movie').val('');
         getMovieInfo(movieTitle);
     });
 }
