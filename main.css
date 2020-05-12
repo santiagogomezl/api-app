@@ -53,6 +53,7 @@ img.title-poster{
     margin-bottom: 10px;
     object-fit: cover;
     display: block;
+    box-shadow: 3px 3px #bfbfbf;
 }
 
 .movie-info h3{

@@ -59,18 +59,15 @@ function getPlaylistInfo(query){
     const queryString = formatQueryParams(params);
     const url = youtubeURL + 'search?' + queryString;
 
-    console.log(url);
     fetchResults(url,'playlistInfo');
 }
 
 function displayMoviePlaylist(responseJson){
 
-    const videoType = responseJson.items[0].id.kind;
-
-    console.log(videoType);
 
     if(responseJson.pageInfo.totalResults !== 0){
 
+        const videoType = responseJson.items[0].id.kind;
         let playlistId = '';
         let url = '';
 
@@ -95,13 +92,11 @@ function displayMoviePlaylist(responseJson){
 
     }else{
         //reportError();
+
         $('#js-error-message').empty()
         .append(`<p>No soundtrack playlists found for this title. Check <a href="https://www.youtube.com/" target="_blank">youtube.com</a> 
         for a full list of playlists</p>`);
     }
-
-   
-
 }
 
 function displayMovieInfo(responseJson){
@@ -111,14 +106,20 @@ function displayMovieInfo(responseJson){
 
         const results = responseJson.Search;
         let titles = 0;
+        let posterURL = '';
         results.length > 4 ?  titles = 4 :  titles = results.length; 
 
         for(let i = 0 ; i < titles ; i++){
             if(results[i].Type === 'movie'){
+
+                results[i].Poster === 'N/A' 
+                ? posterURL = "./default-poster.jpg" 
+                : posterURL = results[i].Poster;
+
                 $('#js-movies-list').append(
                 `<li name="${results[i].Title}" data-year="${results[i].Year}">
                     <a class="js-movie-link" href="#"></a>
-                    <img src="${results[i].Poster}" class="title-poster" alt="${results[i].Title} poster">
+                    <img src=${posterURL} class="title-poster" alt="${results[i].Title} poster">
                     <h3>${results[i].Title}</h3>
                     <p>${results[i].Year}</p>
                 </li>`);
