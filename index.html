@@ -3,45 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soundtracks</title>
+    <title>MoviesSoundtracks - Home</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="main.css">
-
+    <style>
+        body{
+            background-image: url('./movie-collage.jpg'); 
+             background-size: contain;
+        }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Movie Soundtracks and Featured Clips</h1>
-        <form id="js-soundtrack-form" action="#" method="GET">
-        <label for="search-movie">Search movie soundtracks or featured clips</label>
-        <input type="text" name="search-movie" id="js-search-movie" placeholder="Kill Bill" required>
-        <input type="submit" value="Search">
-        </form>
-    </header>
-    <main>
-        
-        <section id="js-error-message"></section>
-
-        <section class="movie-info hidden">
-            <ul id="js-movies-list">
-
-            </ul>
+    <main class="home-main">
+        <section class="search">
+            <h1>Search movies soundtracks and featured clips</h1>
+            <form class="search-form" id="js-soundtrack-form" action="results.html" method="GET">
+            <input class="input-movie" type="text" name="movie" id="js-search-movie" placeholder="Search a movie like Frozen, Kill Bill, Harry Potter, etc" required>
+            <input class="search-movie" type="submit" value="Search">
+            </form>
         </section>
-        
-        <section id="js-playlist">
-            
-        </section>
-     
-        <section class="tracks-info hidden">
-            <ol id="js-tracks-list">
-
-            </ol>
-        </section> 
     </main>
-
-    <script src="https://code.jquery.com/jquery-3.3.1.js" 
-    integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" 
-    crossorigin="anonymous"></script>
-    <script src="index.js"></script>
+    <footer>
+        <p><a href="./">MoviesSoundtracks</a>. All rights reserved 2020 </p>
+    </footer>
 </body>
 </html>
