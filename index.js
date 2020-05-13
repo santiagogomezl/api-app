@@ -6,8 +6,6 @@ const youtubeURL = 'https://www.googleapis.com/youtube/v3/';
 const openMovieDBKey = '743e3c75';
 const openMovieDBURL = 'https://www.omdbapi.com/';
 
-const theAudioDBURL = 'https://www.theaudiodb.com/api/v1/json/1/';
-
 function formatQueryParams(params){
     const queryKeys = Object.keys(params);
     const encodedQuery = queryKeys.map(
@@ -17,7 +15,7 @@ function formatQueryParams(params){
 }
 
 function reportError(errorType){
-    //todo
+    //Provides feedback to user if search was unsuccessful
 
     $('#js-playlist, .tracks-info, .movie-info').addClass('hidden');
     $('#js-error-message p').remove();
@@ -35,35 +33,6 @@ function reportError(errorType){
         </p>`
     );
 
-}
-
-function displayTracksInfo(tracksInfo){
-    //Retrieves tracks info from Youtube to be displayed
-
-    for(let i = 0 ;i < tracksInfo.items.length; i++){
-        $('#js-tracks-list').append(
-            `<li>${tracksInfo.items[i].snippet.title}</li>`    
-        );
-    }
-
-    $('.tracks-info').removeClass('hidden');
-
-}
-
-function getTracksInfo(playlistId){
-    //Get all tracks info
-
-    const params = {
-        part : 'snippet',
-        playlistId : playlistId,
-        maxResults : '50',
-        key : youtubeKey 
-    };
-
-    const queryString = formatQueryParams(params);
-    const url = youtubeURL + 'playlistItems?' + queryString;
-
-    fetchResults(url,'tracksInfo');
 }
 
 function getPlaylistInfo(query){
@@ -88,7 +57,6 @@ function displayMoviePlaylist(responseJson){
 
         if(videoType === 'youtube#playlist'){
             playlistId = responseJson.items[0].id.playlistId;
-            //getTracksInfo(playlistId);
             url = `https://www.youtube.com/embed/videoseries?list=${playlistId}`;
         }else if(videoType === 'youtube#video'){
             playlistId = responseJson.items[0].id.videoId;
@@ -97,7 +65,7 @@ function displayMoviePlaylist(responseJson){
 
         $('#js-playlist').empty().removeClass('hidden')
         .append(
-        `<iframe width="800" height="450" 
+        `<iframe 
         src="${url}" 
         frameborder="0" allow="accelerometer; autoplay; 
         encrypted-media; gyroscope; picture-in-picture" 
@@ -109,9 +77,8 @@ function displayMoviePlaylist(responseJson){
 }
 
 function displayMovieInfo(responseJson){
-    //Display results
+    //Displays results
 
-    
     if(responseJson.Response === "True"){
 
         const results = responseJson.Search;
@@ -127,9 +94,9 @@ function displayMovieInfo(responseJson){
 
                 $('#js-movies-list').append(
                 `<li name="${results[i].Title}" data-year="${results[i].Year}">
-                        <a class="js-movie-link" href="#">
-                        </a>
-                    <img src=${posterURL} class="title-poster" alt="${results[i].Title} poster">
+                        <a class="movie-link" href="#">
+                         <img src=${posterURL} class="movie-poster" alt="${results[i].Title} poster">
+                         </a>
                     <p>
                         <span>${results[i].Year}</span><br>
                         ${results[i].Title}
@@ -160,7 +127,6 @@ function fetchResults(url,type){
     .then(responseJson => {
         if(type === 'movieInfo'){displayMovieInfo(responseJson);}
         else if(type === 'playlistInfo'){displayMoviePlaylist(responseJson);}
-        else if(type === 'tracksInfo'){displayTracksInfo(responseJson);}
     })
     .catch(err => {
         $('#js-error-message').text(`Something went wrong: ${err.message}`);
@@ -181,7 +147,7 @@ function getMovieInfo(query){
 }
 
 function updateSiteURL(title){
-    //todo: change url no reload
+    //Changes URL with current selection. No reload.
     $('#js-search-movie').val(title);
     window.history.pushState("", "", '/results.html?movie='+title);
 }
