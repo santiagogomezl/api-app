@@ -32,8 +32,8 @@ input[type=submit]:hover{
 main{
     height: 100%;
     min-height: 90vh;
-    width: 100%;
-    min-width: 500px;
+    width: 100vw;
+    min-height: 300px;
     margin: 0 auto;
     background-color: rgba(0,0,0,0.4);
     backdrop-filter: blur(1px);
@@ -141,7 +141,7 @@ input.search-movie{
 }
 
 .movie-info li{
-    width: 50%;
+    width: 100%;
     padding: 0 10px 20px 0;
     list-style-type: none;
 }
@@ -172,6 +172,17 @@ input.search-movie{
 
 footer p{
     text-align: center;
+}
+
+@media only screen and (min-width:400px){
+    .movie-info li{
+        width: 50%;
+    }
+    
+    .movie-poster{
+        height: 300px;
+    }
+    
 }
 
 
