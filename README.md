@@ -1,4 +1,4 @@
-# MoviesSoundtracks
+# MovieSoundtracks
 
 ## Summary
 A movie soundtrack database that takes the cinematography world to a different level. Inspired by the exciting soundtracks featured in Quentin Tarantino's films, users can search and listen to soundtracks playlists for free (hosted on YouTube).
