@@ -5,8 +5,9 @@
 body{
     margin: 0;
     font-family: 'Jost', sans-serif;
-    background-image: url('./minion-background.jpg'); 
-    background-size: cover;
+    background-image: url('./images/movie-collage.jpg'); 
+    background-attachment: fixed;
+    background-size: contain;
     background-color: white;
     color: white;
 }
@@ -40,9 +41,16 @@ main{
 
 footer{
     width: 100%;
-    min-width: 500px;
     margin: 0;
     padding: 10px 0;
+}
+
+.results-main{
+    background-color: rgba(0,0,0,0.5);
+    backdrop-filter: blur(6px);
+}
+
+.home-footer{
     background-color: rgba(0,0,0,0.4);
     backdrop-filter: blur(1px);
 }
@@ -155,7 +163,7 @@ input.search-movie{
 .movie-info span{
     font-size: 0.8em;
     font-weight: 400;
-    color: #8e8e8e;
+    color: #afafaf;
 }
 
 footer p{

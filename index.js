@@ -89,7 +89,7 @@ function displayMovieInfo(responseJson){
             if(results[i].Type === 'movie'){
 
                 results[i].Poster === 'N/A' 
-                ? posterURL = "./default-poster.jpg" 
+                ? posterURL = "./images/default-poster.jpg" 
                 : posterURL = results[i].Poster;
 
                 $('#js-movies-list').append(
