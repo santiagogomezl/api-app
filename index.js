@@ -1,10 +1,11 @@
 'use strict';
 
-const youtubeKey = 'AIzaSyB6601I64jFHtM62Vs-qkh_iQsL-mQ-fTg';
-const youtubeURL = 'https://www.googleapis.com/youtube/v3/';
-
-const openMovieDBKey = '743e3c75';
-const openMovieDBURL = 'https://www.omdbapi.com/';
+const STORE = {
+    youtubeKey : 'AIzaSyB6601I64jFHtM62Vs-qkh_iQsL-mQ-fTg',
+    youtubeURL : 'https://www.googleapis.com/youtube/v3/',
+    openMovieDBKey : '743e3c75',
+    openMovieDBURL : 'https://www.omdbapi.com/'
+};
 
 function formatQueryParams(params){
     const queryKeys = Object.keys(params);
@@ -40,10 +41,10 @@ function getPlaylistInfo(query){
         part : 'snippet',
         q: query + ' sountrack playlist',
         maxResults : '1',
-        key : youtubeKey 
+        key : STORE.youtubeKey 
     };
     const queryString = formatQueryParams(params);
-    const url = youtubeURL + 'search?' + queryString;
+    const url = STORE.youtubeURL + 'search?' + queryString;
     fetchResults(url,'playlistInfo');
 }
 
@@ -95,7 +96,7 @@ function displayMovieInfo(responseJson){
                 : posterURL = results[i].Poster;
 
                 $('#js-movies-list').append(
-                `<li name="${results[i].Title}" data-year="${results[i].Year}">
+                `<li data-name-type="${results[i].Title}" data-year-type="${results[i].Year}">
                         <a class="movie-link" href="#">
                          <img src=${posterURL} class="movie-poster" alt="${results[i].Title} poster">
                          </a>
@@ -140,10 +141,10 @@ function getMovieInfo(query){
     //Request movie info
     const params = {
         s : query,
-        apikey : openMovieDBKey
+        apikey : STORE.openMovieDBKey
     };
     const queryString = formatQueryParams(params);
-    const url = openMovieDBURL + '?' + queryString;
+    const url = STORE.openMovieDBURL + '?' + queryString;
     
     fetchResults(url,'movieInfo');
 }
@@ -161,8 +162,8 @@ function loadYoutubeInfo(){
     $('#js-movies-list').on('click', 'a', function(){
         $('#js-tracks-list, #js-playlist').empty();
         $('.tracks-info').addClass('hidden');
-        const title = $(this).parent('li').attr('name');
-        const year = $(this).parent('li').attr('data-year');
+        const title = $(this).parent('li').attr('data-name-type');
+        const year = $(this).parent('li').attr('data-year-type');
         updateSiteURL(title);
         getPlaylistInfo(title + ' ' + year);
     });
