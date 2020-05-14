@@ -24,10 +24,7 @@ Playlist:
 Error:
 ![errors](images/moviessoundtracks-error.png)
 
-Recommendations:
-![recommendations](screenshots/recommendations.png)
-
-## Tehcnologies
+## Technologies
 
 * HTML
 * CSS
@@ -35,4 +32,5 @@ Recommendations:
 * JQuery
 
 ## Demo
+
 - [Live Demo](https://santiagogomezl.github.io/movies-soundtracks/)
