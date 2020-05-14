@@ -65,11 +65,13 @@ function displayMoviePlaylist(responseJson){
 
         $('#js-playlist').empty().removeClass('hidden')
         .append(
-        `<iframe 
+        `<h2>${$('#js-search-movie').val()}</h2>
+        <iframe 
         src="${url}" 
         frameborder="0" allow="accelerometer; autoplay; 
         encrypted-media; gyroscope; picture-in-picture" 
         allowfullscreen></iframe>`);
+        
 
     }else{
         reportError('playlistNotFound');
@@ -89,7 +91,7 @@ function displayMovieInfo(responseJson){
             if(results[i].Type === 'movie'){
 
                 results[i].Poster === 'N/A' 
-                ? posterURL = "./images/default-poster.jpg" 
+                ? posterURL = "images/default-poster.jpg" 
                 : posterURL = results[i].Poster;
 
                 $('#js-movies-list').append(

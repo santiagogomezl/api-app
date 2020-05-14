@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MoviesSoundtracks - Results</title>
+    <title>MovieSoundtracks - Results</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="main.css">
@@ -13,7 +13,7 @@
 
     <main class="results-main">
         <section class="search">
-            <h1>Search movies soundtracks and featured clips</h1>
+            <h1>Search movie soundtracks and featured clips</h1>
             <form class="search-form" id="js-soundtrack-form" action="results.html" method="GET">
             <input class="input-movie" type="text" name="movie" id="js-search-movie" placeholder="Search a movie like Frozen, Kill Bill, etc" required>
             <input class="search-movie" type="submit" value="Search">
@@ -21,21 +21,24 @@
         </section>
        
         <section id="js-error-message" class="hidden">
-            <img class="error-img"src="./images/error-filmmaker.png" alt="Soemthing went wrong image">
+            <h2>Something Went Wrong</h2>
+            <img class="error-img" src="images/error-filmmaker.png" alt="Soemthing went wrong image">
             <p class="error-msg"></p>
         </section>
 
         <section id="js-playlist" class="hidden">
+            <h2>Playlist</h2>
         </section>
 
         <section class="movie-info hidden">
+            <h2>Titles</h2>
             <ul id="js-movies-list">
 
             </ul>
         </section>
         
         <footer>
-            <p><a href="index.html">MoviesSoundtracks</a>. All rights reserved 2020 </p>
+            <p><a href="index.html">MovieSoundtracks</a>. All rights reserved 2020 </p>
         </footer>
 
     </main>

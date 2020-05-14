@@ -5,7 +5,7 @@
 body{
     margin: 0;
     font-family: 'Jost', sans-serif;
-    background-image: url('./images/movie-collage.jpg'); 
+    background-image: url('images/movie-collage.jpg'); 
     background-attachment: fixed;
     background-size: contain;
     background-color: white;
@@ -115,6 +115,10 @@ input.search-movie{
     height: 300px;
     display: block;
     margin: 0 auto;
+}
+
+#js-error-message h2{
+    text-align: center;
 }
 
 .error-msg{
